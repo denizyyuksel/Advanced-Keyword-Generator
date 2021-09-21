@@ -1,8 +1,7 @@
-/* eslint-disable */
 <template>
     <div>
         <the-header/>
-        <div class="w-screen sm:flex sm:justify-around">
+        <div>
             <div>
                 <router-view/>
             </div>
