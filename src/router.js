@@ -9,7 +9,6 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         { path: '/', component: HomePage },
-        { path: '/', redirect: '/keyword-generator' },
         { path: '/keyword-generator', component: KeywordGenerator },
         { path: '/keyword-density', component: KeywordDensity },
     ],
