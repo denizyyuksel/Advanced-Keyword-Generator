@@ -97,12 +97,12 @@
                 }  // this words are grouped into n-gram keywords where n is from 1 to 10
                 this.keywords = ngrams;
                 this.description = ''; // description is cleared when keywords are shown
-                this.filterWords = '';
+                this.filterWords = ''; // filter is cleared when keywords are shown
                 this.nGrams = this.grams;
             },
         },
         watch: {
-            isDisabled(newValue){
+            isDisabled(newValue){ // clear old selection values
                 if (newValue){
                     this.grams = [];
                 }
