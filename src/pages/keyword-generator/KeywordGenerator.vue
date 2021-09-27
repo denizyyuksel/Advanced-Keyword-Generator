@@ -1,10 +1,10 @@
 <template>
-    <div class="keywords-generator-wrapper">
-        <div class="header">
+    <div class="ma-keywords-generator">
+        <div class="ma-header">
             <span>Keyword Generator</span>
         </div>
-        <div class="form-input">
-            <span class="input-text">Application Description</span>
+        <div class="ma-form-input">
+            <span class="ma-input-text">Application Description</span>
             <el-input
                 v-model="description"
                 placeholder="enter app description"
@@ -12,8 +12,8 @@
                 rows="5"
             />
         </div>
-        <div class="form-input">
-            <span class="input-text">Filter Words</span>
+        <div class="ma-form-input">
+            <span class="ma-input-text">Filter Words</span>
             <el-input
                 v-model.trim="filterWords"
                 placeholder="enter unwanted words by putting , between words like is, a, an, the"
@@ -21,18 +21,18 @@
                 rows="2"
             />
         </div>
-        <div class="form-checkbox">
+        <div class="ma-form-checkbox">
             <el-checkbox-group v-model="grams">
                 <el-checkbox
                     v-for="i in 10" :key="i + '-gram'"
                     :label="i"
-                    class="input-text"
+                    class="ma-input-text"
                 >
                     {{ i }}-gram
                 </el-checkbox>
             </el-checkbox-group>
         </div>
-        <div class="button">
+        <div class="ma-button">
             <el-button
                 type="success"
                 :disabled="isDisabled"
@@ -42,13 +42,13 @@
                 <font-awesome-icon :icon="['fas', 'check']"/>
             </el-button>
         </div>
-        <div v-if="words.length !== 0" class="generator-result">
+        <div v-if="words.length !== 0" class="ma-generator-result">
             <div
                 v-for="i in sortedGrams"
                 :key="i"
-                class="result-element"
+                class="ma-result-element"
             >
-                <span class="result-element-header">
+                <span class="ma-result-element-header">
                     {{ i }}-gram
                 </span>
                 <li v-for="(word, index) in keywords[i]" :key="index">
@@ -61,7 +61,7 @@
 
 <script>
     export default {
-        name: 'ma-keyword-generator-page',
+        name: 'ma-keyword-generator',
         data(){
             return {
                 description: '',
@@ -74,9 +74,7 @@
         },
         computed: {
             sortedGrams() { // sorts the selected grams in ascending order
-                return this.nGrams.slice().sort(function(a, b){
-                    return a-b;
-                });
+                return this.nGrams.slice().sort((a, b) => a - b);
             },
             isDisabled() { // prevents to generate keywords before entering description and selecting grams
                 return this.description === '' || this.grams.length === 0;
@@ -112,29 +110,29 @@
 </script>
 
 <style>
-.keywords-generator-wrapper {
+.ma-keywords-generator {
   display: flex;
   flex-direction: column;
   align-content: space-between;
 }
-.form-input {
+.ma-form-input {
   display: flex;
   flex-direction: column;
   margin: 5px 50px;
   padding: 5px;
 }
-.input-text {
+.ma-input-text {
   font-family: "Arial",serif;
   font-size: 15px;
   margin-bottom: 5px;
 }
-.form-checkbox {
+.ma-form-checkbox {
   display: flex;
   justify-content: center;
   margin: 5px;
   padding: 5px;
 }
-.header {
+.ma-header {
   margin: 10px;
   padding: 5px;
   display: flex;
@@ -142,13 +140,13 @@
   font-family: "Arial",serif;
   font-size: 20px;
 }
-.button {
+.ma-button {
   margin: 15px;
   padding: 15px;
   display: flex;
   justify-content: center;
 }
-.generator-result {
+.ma-generator-result {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -156,13 +154,13 @@
   margin: 5px;
   padding: 5px;
 }
-.result-element {
+.ma-result-element {
   margin: 10px 15px;
   padding: 5px;
   font-family: "Arial",serif;
   font-size: 15px;
 }
-.result-element-header {
+.ma-result-element-header {
   display: flex;
   text-decoration: underline;
   margin-bottom: 5px;
