@@ -1,5 +1,4 @@
 import VueRouter from 'vue-router';
-import KeywordDensity from './pages/keyword-density/KeywordDensity.vue';
 import Vue from 'vue';
 import KeywordGenerator from './pages/keyword-generator/KeywordGenerator.vue';
 import HomePage from './pages/index.vue';
@@ -10,7 +9,6 @@ const router = new VueRouter({
     routes: [
         { path: '/', component: HomePage },
         { path: '/keyword-generator', component: KeywordGenerator },
-        { path: '/keyword-density', component: KeywordDensity },
     ],
 });
 
