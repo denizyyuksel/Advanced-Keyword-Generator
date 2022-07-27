@@ -1,74 +1,121 @@
 <template>
     <div class="ma-keywords-generator">
         <div class="ma-header">
-            <span>Keyword Generator</span>
+            <a-textarea v-model="inputText" placeholder="Type a text" :auto-size="{ minRows: 2, maxRows: 5 }"/>
             <br>
-            <input v-model="inputText" placeholder="Type a text">
-            <button @click="subfunction">
-                Generate Keywords
-            </button>
+            <a-button
+                type="primary" block
+                @click="keywordGenerator"
+            >
+                <font-awesome-icon icon="thumbs-up"/>
+            </a-button>
             <br>
-            <span>1-gram:{{ gram1 }}</span>
-            <span>2-gram:{{ gram2 }}</span>
-            <span>3-gram:{{ gram3 }}</span>
+            <div>
+                <label class="typo__label">Select Grams To Display</label>
+                <multiselect
+                    v-model="value" :options="options"
+                    :multiple="true"
+                    :close-on-select="false" :clear-on-select="false"
+                    :preserve-search="true" placeholder="Choose Grams"
+                    label="name" track-by="name"
+                    :preselect-first="true"
+                >
+                    <template #selection="{ values, isOpen }">
+                        <span v-if="values.length &amp;&amp; !isOpen" class="multiselect__single">{{ values.length }} options selected</span>
+                    </template>
+                </multiselect>
+                <div v-for="(value, name) in this.value" :key="name">
+                    {{ value.name }}-Grams:
+                    <div v-for="(val, index) in arr[name]" :key="index" class="tags">
+                        <a-tag color="blue">
+                            {{ val }}
+                        </a-tag>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
-
 <script>
+    import Multiselect from 'vue-multiselect';
+    import Vue from 'vue';
+    import 'ant-design-vue/dist/antd.css';
+    Vue.component('multiselect', Multiselect);
     export default {
         name: 'ma-keyword-generator',
+        components: { Multiselect },
         data: function (){
-
             return {
                 inputText: '',
-                gram1: '',
-                gram2: '',
-                gram3: '',
+                value: [],
+                arr: [],
+                options: [
+                    { name: 1 },
+                    { name: 2 },
+                    { name: 3 },
+                    { name: 4 },
+                    { name: 5 },
+                    { name: 6 },
+                    { name: 7 },
+                    { name: 8 },
+                    { name: 9 },
+                    { name: 10 },
+                ],
             };
         },
-
         methods: {
-            subfunction(){
-                this.result=this.inputText.split(' ');
-                this.result = this.result.filter(function(entry) {   //Remove white spaces
-                    return entry.trim() !== '';
-                });
-                let len=this.result.length;
-                this.gram1=this.fonc(len,1);
-                this.gram2=this.fonc(len,2);
-                this.gram3=this.fonc(len,3);
+            keywordGenerator(){
+                this.arr=[];
+                this.inpText=this.inputText.split(' ');
+                this.removeWhitespace();
+                this.filterUnwantedWords();
+                this.fillArray();
             },
-            fonc(len,n){                //Function to generate keywords
+            getGrams(len, n){//Function to generate keywords
                 let str='';
-                let ark=[];
+                let array=[];
                 for (let i=0; i<=len-n; i++) {
                     for (let j=i; j<i+n; j++){
-                        str+=this.result[j]+' ';
+                        str+=this.inpText[j]+' ';
                     }
-                    ark.push(str.slice(0, -1));
+                    array.push(str.slice(0, -1));
                     str='';
                 }
-                const unique = (value, index, self) => {     //Make an array Unique
+                const unique = (value, index, self) => {//Make an array Unique
                     return self.indexOf(value) === index;
                 };
-                ark = ark.filter(unique);
-                return ark.join(', ');
+                array = array.filter(unique);
+                return array;
+            },
+            filterUnwantedWords(){
+                this.inpText=this.inpText.filter(word => word !== 'is' && word !== 'an' && word !== 'the' && word !== 'of'&& word !== 'a'&& word !== 'and');
+            },
+            removeWhitespace(){
+                this.inpText = this.inpText.filter(function(entry) {   //Remove white spaces
+                    return entry.trim() !== '';
+                });
+            },
+            fillArray(){
+                let len=this.inpText.length;
+                for (let i=0; i<this.value.length; i++){
+                    this.arr[i]=this.getGrams(len,this.value[i].name);
+                }
             },
         },
-
     };
-
-
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-ma-keyword-generator{
-}
 .ma-header{
   text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin: auto 40%;
+  margin: auto 35%;
+}
+.tags{
+  display: inline-block;
+  flex-direction: row;
+  text-align: left;
 }
 </style>
