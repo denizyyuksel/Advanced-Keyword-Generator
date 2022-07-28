@@ -12,20 +12,19 @@
             <br>
             <div>
                 <label class="typo__label">Select Grams To Display</label>
-                <multiselect
-                    v-model="value" :options="options"
-                    :multiple="true"
-                    :close-on-select="false" :clear-on-select="false"
-                    :preserve-search="true" placeholder="Choose Grams"
-                    label="name" track-by="name"
-                    :preselect-first="true"
+                <a-select
+                    v-model="value"
+                    mode="tags"
+                    allow-clear
+                    style="width: 100%"
+                    placeholder="Choose Grams"
                 >
-                    <template #selection="{ values, isOpen }">
-                        <span v-if="values.length &amp;&amp; !isOpen" class="multiselect__single">{{ values.length }} options selected</span>
-                    </template>
-                </multiselect>
+                    <a-select-option v-for="i in 10" :key="(i).toString()">
+                        {{ i }}
+                    </a-select-option>
+                </a-select>
                 <div v-for="(value, name) in this.value" :key="name">
-                    {{ value.name }}-Grams:
+                    {{ value }}-Grams:
                     <div v-for="(val, index) in arr[name]" :key="index" class="tags">
                         <a-tag color="blue">
                             {{ val }}
@@ -37,30 +36,13 @@
     </div>
 </template>
 <script>
-    import Multiselect from 'vue-multiselect';
-    import Vue from 'vue';
-    import 'ant-design-vue/dist/antd.css';
-    Vue.component('multiselect', Multiselect);
     export default {
         name: 'ma-keyword-generator',
-        components: { Multiselect },
         data: function (){
             return {
                 inputText: '',
                 value: [],
                 arr: [],
-                options: [
-                    { name: 1 },
-                    { name: 2 },
-                    { name: 3 },
-                    { name: 4 },
-                    { name: 5 },
-                    { name: 6 },
-                    { name: 7 },
-                    { name: 8 },
-                    { name: 9 },
-                    { name: 10 },
-                ],
             };
         },
         methods: {
@@ -98,7 +80,7 @@
             fillArray(){
                 let len=this.inpText.length;
                 for (let i=0; i<this.value.length; i++){
-                    this.arr[i]=this.getGrams(len,this.value[i].name);
+                    this.arr[i]=this.getGrams(len,parseInt(this.value[i]));
                 }
             },
         },

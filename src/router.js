@@ -1,9 +1,7 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
-import 'ant-design-vue/dist/antd.css';
 import KeywordGenerator from './pages/keyword-generator/KeywordGenerator.vue';
 import HomePage from './pages/index.vue';
-
 
 Vue.use(VueRouter);
 const router = new VueRouter({
