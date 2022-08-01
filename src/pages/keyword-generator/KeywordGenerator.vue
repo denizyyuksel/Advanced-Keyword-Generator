@@ -1,43 +1,39 @@
 <template>
-    <div class="ma-keywords-generator">
-        <div class="ma-header">
-            <a-textarea v-model="inputText" placeholder="Type a text" :auto-size="{ minRows: 2, maxRows: 5 }"/>
-            <br>
-            <a-button
-                type="primary" block
-                @click="keywordGenerator"
-            >
-                <font-awesome-icon icon="thumbs-up"/>
-            </a-button>
-            <br>
-            <div>
-                <label class="typo__label">Select Grams To Display</label>
-                <a-select
-                    v-model="value"
-                    mode="tags"
-                    allow-clear
-                    style="width: 100%"
-                    placeholder="Choose Grams"
-                >
-                    <a-select-option v-for="i in 10" :key="(i).toString()">
-                        {{ i }}
-                    </a-select-option>
-                </a-select>
-                <div v-for="(value, name) in this.value" :key="name">
-                    {{ value }}-Grams:
-                    <div v-for="(val, index) in arr[name]" :key="index" class="tags">
-                        <a-tag color="blue">
-                            {{ val }}
-                        </a-tag>
-                    </div>
-                </div>
+    <div class=" space-y-8 max-w-md mx-auto text-center overflow-hidden md:max-w-2xl">
+        <a-textarea v-model="inputText" placeholder="Type a text" :auto-size="{ minRows: 2, maxRows: 5 }"/>
+        <br>
+        <a-button
+            class="text-blue-500"
+            type="primary" block
+            @click="keywordGenerator"
+        >
+            <font-awesome-icon icon="thumbs-up"/>
+        </a-button>
+        <br>
+        <label>Select Grams To Display</label>
+        <a-select
+            v-model="value"
+            mode="tags"
+            allow-clear
+            style="width: 100%"
+            placeholder="Choose Grams"
+        >
+            <a-select-option v-for="i in 10" :key="(i).toString()">
+                {{ i }}
+            </a-select-option>
+        </a-select>
+        <div v-for="(value, name) in this.value" :key="name">
+            {{ value }}-Grams:
+            <div v-for="(val, index) in arr[name]" :key="index" class="inline-block">
+                <a-tag color="blue">
+                    {{ val }}
+                </a-tag>
             </div>
         </div>
     </div>
 </template>
 <script>
     export default {
-        name: 'ma-keyword-generator',
         data: function (){
             return {
                 inputText: '',
@@ -86,18 +82,5 @@
         },
     };
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-.ma-header{
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: auto 35%;
-}
-.tags{
-  display: inline-block;
-  flex-direction: row;
-  text-align: left;
-}
 </style>

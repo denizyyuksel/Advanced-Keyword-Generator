@@ -1,5 +1,5 @@
 <template>
-    <div class="ma-router-item">
+    <div class="text-blue-500 text-center mt-8 space-y-6">
         <router-link to="/keyword-generator">
             Keyword Generator
         </router-link>
@@ -7,10 +7,4 @@
 </template>
 
 <style>
- .ma-router-item {
-   display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
-   margin: 15px;
- }
 </style>

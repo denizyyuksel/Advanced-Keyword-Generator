@@ -9,6 +9,7 @@ import TheNav from './components/TheNav.vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import FontAwesomeIcon from './fontAwesome';
+import 'tailwindcss/tailwind.css';
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('the-header', TheHeader);
