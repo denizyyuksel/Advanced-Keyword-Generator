@@ -44,7 +44,7 @@
         methods: {
             keywordGenerator(){
                 this.arr=[];
-                this.inpText=this.inputText.split(' ');
+                this.inpText=this.inputText.toLowerCase().split(' ');
                 this.removeWhitespace();
                 this.filterUnwantedWords();
                 this.fillArray();
