@@ -47,6 +47,7 @@
     },
     ];
     export default {
+        name: 'ma-keyword-generator',
         props: {
             static: {
                 type: String,default: '',
@@ -129,7 +130,8 @@
                 return array;
             },
             filterUnwantedWords(){
-                this.inputWords=this.inputWords.filter(word => word !== 'is' && word !== 'an' && word !== 'the' && word !== 'of'&& word !== 'a'&& word !== 'and');
+                const unwantedWords = ['is', 'an', 'the', 'of', 'a', 'and'];
+                this.inputWords=this.inputWords.filter(word => !unwantedWords.includes(word));
             },
             removeWhitespace(){
                 this.inputWords = this.inputWords.filter(function(entry) {   //Remove white spaces
@@ -149,5 +151,8 @@
 .ant-btn.ant-btn-primary,.ant-btn-primary:hover {
   @apply bg-red-500;
   @apply border-none;
+}
+.ant-table-thead > tr > th{
+  @apply bg-red-500 ;
 }
 </style>
