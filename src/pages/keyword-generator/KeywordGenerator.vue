@@ -30,6 +30,9 @@
                 </a-tag>
             </div>
         </div>
+        <div class="text-blue-500 text-center mt-8 space-y-10 pb-8 leading-10 font-bold text-xl">
+            <a href="http://localhost:8080/"> Back</a>
+        </div>
     </div>
 </template>
 <script>
